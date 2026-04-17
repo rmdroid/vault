@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Support and Privacy · GPT Vault</title>
+  <meta name="description" content="Support, privacy, and legal notice page for GPT Vault with contact details, FAQ, and privacy notes for the Chrome extension.">
+  <meta name="robots" content="index,follow">
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --surface: #ffffff;
+      --ink: #0f172a;
+      --muted: #52607a;
+      --line: rgba(15, 23, 42, 0.1);
+      --blue: #2563eb;
+      --blue-deep: #1d4ed8;
+      --shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+      --radius: 22px;
+      --max: 980px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(720px 360px at 0% -10%, rgba(37, 99, 235, 0.08), transparent 70%),
+        linear-gradient(180deg, #f8fbff 0%, var(--bg) 100%);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    a {
+      color: var(--blue);
+      text-decoration: underline;
+      text-underline-offset: 0.16em;
+    }
+
+    a:hover,
+    a:focus-visible {
+      color: var(--blue-deep);
+      outline: none;
+    }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 2rem 0 4rem;
+    }
+
+    .hero {
+      padding: 1.4rem 0 1.8rem;
+    }
+
+    .lang-switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-bottom: 1rem;
+      padding: 0.26rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.82);
+      box-shadow: var(--shadow);
+    }
+
+    .lang-switch a,
+    .lang-switch span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 40px;
+      min-height: 32px;
+      padding: 0 0.8rem;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      color: var(--muted);
+    }
+
+    .lang-switch .active {
+      background: var(--ink);
+      color: #fff;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+    }
+
+    h1 {
+      margin: 0.8rem 0 0;
+      font-size: clamp(2.4rem, 6vw, 4.4rem);
+      line-height: 0.94;
+      letter-spacing: -0.05em;
+      max-width: 10ch;
+    }
+
+    .lead {
+      max-width: 64ch;
+      margin: 1.1rem 0 0;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .grid {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: start;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.35rem;
+    }
+
+    .card h2 {
+      margin: 0 0 0.8rem;
+      font-size: 1.2rem;
+      line-height: 1.15;
+    }
+
+    .card p {
+      margin: 0.55rem 0 0;
+      color: var(--muted);
+    }
+
+    .stack {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .list {
+      margin: 0.8rem 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .list li {
+      display: grid;
+      grid-template-columns: 10px 1fr;
+      gap: 0.7rem;
+      align-items: start;
+    }
+
+    .list li::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--blue);
+      margin-top: 0.5rem;
+    }
+
+    details {
+      border-top: 1px solid var(--line);
+      padding-top: 0.9rem;
+    }
+
+    details:first-of-type {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 700;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+
+    summary::after {
+      content: "+";
+      color: var(--blue);
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    details[open] summary::after {
+      content: "−";
+    }
+
+    details p {
+      margin: 0.8rem 0 0;
+    }
+
+    .fine {
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+
+    .legal {
+      margin-top: 1rem;
+    }
+
+    .legal h3 {
+      margin: 1.2rem 0 0.35rem;
+      font-size: 1rem;
+    }
+
+    footer {
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 820px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <div class="lang-switch" aria-label="Language switcher">
+        <a href="support_gpt.html">DE</a>
+        <span class="active" aria-current="page">EN</span>
+      </div>
+      <span class="eyebrow">Support and Privacy Policy</span>
+      <h1>GPT Vault</h1>
+      <p class="lead">Help, contact details, and legal information for GPT Vault. The Chrome extension stores skills and prompts locally in the browser and helps users reuse proven AI workflows more efficiently.</p>
+    </section>
+
+    <section class="grid">
+      <div class="stack">
+        <article class="card">
+          <h2>Contact</h2>
+          <p>If you need support, run into a technical issue, or have questions about the extension, you can reach me by email or through the contact form.</p>
+          <ul class="list">
+            <li><span>Email: <a href="mailto:rm@kostenmanager.net">rm@kostenmanager.net</a></span></li>
+            <li><span>Contact form: <a href="https://mein.online-impressum.de/robert-meyer/" target="_blank" rel="noopener noreferrer">mein.online-impressum.de/robert-meyer</a></span></li>
+            <li><span>For technical issues, please include your browser, the GPT Vault version, and a short description of the affected workflow.</span></li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h2>Frequently asked questions</h2>
+
+          <details open>
+            <summary>How does GPT Vault work?</summary>
+            <p>GPT Vault stores skills, prompts, categories, and tags locally in the browser. Users can search, structure, export, and insert saved content directly into an open AI interface when needed.</p>
+          </details>
+
+          <details>
+            <summary>Are my contents sent to servers?</summary>
+            <p>No. The extension stores its data in <code>chrome.storage.local</code>. External requests only happen if you deliberately add a team or paid URL yourself. No content is sent to the developer’s own servers.</p>
+          </details>
+
+          <details>
+            <summary>Can GPT Vault read website content?</summary>
+            <p>Only on explicit user action. The context menu can import selected text. There is no automatic browsing analysis, no tracking, and no access to browser history.</p>
+          </details>
+
+          <details>
+            <summary>Does a saved prompt mean the output is correct or approved?</summary>
+            <p>No. GPT Vault is an organization and insertion tool. Professional, legal, and privacy review always remains with the user.</p>
+          </details>
+        </article>
+      </div>
+
+      <div class="stack">
+        <article class="card">
+          <h2>Important notes</h2>
+          <ul class="list">
+            <li><span>GPT Vault does not replace professional, legal, or privacy review.</span></li>
+            <li><span>Saved skills and prompts should always be checked and adapted to the real use case before production use.</span></li>
+            <li><span>Team or premium content lists should only be connected from trusted sources.</span></li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h2>Privacy at a glance</h2>
+          <ul class="list">
+            <li><span>The extension stores skills, prompts, categories, tags, and optional URLs locally in the browser.</span></li>
+            <li><span>There is no tracking, analytics software, or advertising.</span></li>
+            <li><span>There is no registration, no user account, and no subscription inside the extension.</span></li>
+            <li><span>Content is not transmitted to the developer’s own servers in order to provide the core functionality.</span></li>
+            <li><span>External content is only loaded when the user explicitly adds a URL for team or premium content.</span></li>
+          </ul>
+        </article>
+
+        <article class="card legal">
+          <h2>Privacy Policy</h2>
+          <p class="fine">This page serves both as the support page and the privacy policy for the GPT Vault Chrome extension.</p>
+
+          <h3>What data the extension processes</h3>
+          <p class="fine">GPT Vault processes content that users explicitly enter, save, import, select, or insert into an open AI interface. This includes skills, prompts, categories, tags, internal notes, and optional team or premium URLs.</p>
+
+          <h3>How this data is processed</h3>
+          <p class="fine">This content is stored locally in the browser using <code>chrome.storage.local</code>. The extension does not use its own servers to store your content. If you use the export feature, your stored content is made available locally as a JSON or TXT file.</p>
+
+          <h3>Transfer to third parties</h3>
+          <p class="fine">Your content is not transmitted to the developer’s own servers. External requests only occur if you deliberately add a team or premium URL. In that case, the extension directly fetches the JSON source you specified in order to load the included skill content. There is no broader sharing, sale, advertising use, or tracking use of your data.</p>
+
+          <h3>Website content and active tabs</h3>
+          <p class="fine">On explicit user action, the extension can import selected text from a webpage or insert stored content into the currently open chat interface. There is no automatic access to browsing history, no background analysis of websites, and no profiling of users.</p>
+
+          <h3>Support requests</h3>
+          <p class="fine">If you send a support request by email or through the contact form, the information you provide is used solely to handle your request.</p>
+
+          <h3>Cookies, tracking, and advertising</h3>
+          <p class="fine">The extension itself uses no tracking, no analytics software, and no advertising. This support page itself uses no cookies and no user accounts. If you use external contact channels, the privacy policies of those providers also apply.</p>
+
+          <h3>Data controller</h3>
+          <p class="fine">Robert Meyer<br>Robert Meyer c/o Online-Impressum.de #4759<br>Europaring 90<br>53757 Sankt Augustin<br>Germany</p>
+
+          <h2 style="margin-top:1.35rem;">Legal notice</h2>
+          <p class="fine"><strong>Robert Meyer</strong><br>Robert Meyer c/o Online-Impressum.de #4759<br>Europaring 90<br>53757 Sankt Augustin<br>Germany</p>
+          <p class="fine">Email: <a href="mailto:rm@kostenmanager.net">rm@kostenmanager.net</a><br>Contact form: <a href="https://mein.online-impressum.de/robert-meyer/" target="_blank" rel="noopener noreferrer">mein.online-impressum.de/robert-meyer</a></p>
+          <p class="fine">I am not willing or obliged to participate in dispute resolution proceedings before a consumer arbitration board.</p>
+          <p class="fine"><a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer">EU Commission platform for online dispute resolution</a></p>
+        </article>
+      </div>
+    </section>
+
+    <footer>
+      © 2026 Robert Meyer · Support and privacy page for GPT Vault · <a href="support_gpt.html">Deutsche Version</a>
+    </footer>
+  </main>
+</body>
+</html>
