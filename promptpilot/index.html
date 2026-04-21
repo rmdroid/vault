@@ -38,6 +38,49 @@
 document.addEventListener('DOMContentLoaded', async function() {
   const loading = document.getElementById('__bundler_loading');
   function setStatus(msg) { if (loading) loading.textContent = msg; }
+  const cookieNoticeKey = 'pp-cookie-notice-dismissed';
+
+  function mountCookieNotice() {
+    try {
+      if (localStorage.getItem(cookieNoticeKey) === '1') return;
+    } catch (e) {}
+
+    if (!document.body || document.getElementById('pp-cookie-notice')) return;
+
+    const style = document.createElement('style');
+    style.id = 'pp-cookie-notice-style';
+    style.textContent = [
+      '#pp-cookie-notice{position:fixed;left:24px;right:24px;bottom:24px;z-index:10001;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 20px;border:1px solid rgba(255,255,255,0.12);border-radius:18px;background:rgba(12,12,18,0.92);backdrop-filter:blur(18px);box-shadow:0 20px 60px rgba(0,0,0,0.35);color:#f5f7ff;font:14px/1.5 -apple-system,BlinkMacSystemFont,sans-serif;}',
+      '#pp-cookie-notice strong{display:block;font-size:15px;margin-bottom:2px;}',
+      '#pp-cookie-notice p{margin:0;color:rgba(245,247,255,0.82);max-width:760px;}',
+      '#pp-cookie-notice button{border:0;border-radius:999px;padding:12px 18px;background:linear-gradient(135deg,#8b5cf6,#a78bfa);color:#fff;font:600 14px/1 -apple-system,BlinkMacSystemFont,sans-serif;cursor:pointer;white-space:nowrap;}',
+      '#pp-cookie-notice button:hover{filter:brightness(1.06);}',
+      '#pp-cookie-notice button:focus-visible{outline:2px solid rgba(255,255,255,0.8);outline-offset:2px;}',
+      '@media (max-width:720px){#pp-cookie-notice{left:16px;right:16px;bottom:16px;flex-direction:column;align-items:flex-start;padding:16px;}#pp-cookie-notice button{width:100%;}}'
+    ].join('');
+    document.head.appendChild(style);
+
+    const notice = document.createElement('div');
+    notice.id = 'pp-cookie-notice';
+    notice.setAttribute('role', 'dialog');
+    notice.setAttribute('aria-live', 'polite');
+    notice.innerHTML = [
+      '<div>',
+      '<strong>Hinweis zu Cookies und Daten</strong>',
+      '<p>Diese Landingpage sammelt keine personenbezogenen Daten und verwendet keine Tracking-Cookies. Mit „Verstanden“ blendest du diesen Hinweis aus.</p>',
+      '</div>',
+      '<button type="button">Verstanden</button>'
+    ].join('');
+
+    notice.querySelector('button').addEventListener('click', function() {
+      try {
+        localStorage.setItem(cookieNoticeKey, '1');
+      } catch (e) {}
+      notice.remove();
+    });
+
+    document.body.appendChild(notice);
+  }
 
   // Error sink persists across replaceWith since it's on window, not the DOM.
   window.addEventListener('error', function(e) {
@@ -162,6 +205,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     if (window.Babel && typeof window.Babel.transformScriptTags === 'function') {
       window.Babel.transformScriptTags();
     }
+    mountCookieNotice();
   } catch (err) {
     setStatus('Error unpacking: ' + err.message);
     console.error('Bundle unpack error:', err);
